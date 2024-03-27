@@ -13,6 +13,7 @@ import {
 
 import { Segment, SegmentItem } from '@ozen-ui/kit/Segment';
 import { COOKIE } from './utils/constants';
+import { useSession } from './utils/context/session';
 // import { LightIcon, DarkIcon } from '@ozen-ui/kit/Icon';
 
 const queryClient = new QueryClient();
@@ -28,7 +29,12 @@ const ReactQueryDevtoolsProduction = React.lazy(() =>
 // Import the generated route tree
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    isAuthenticated: false,
+  },
+});
 
 // // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -39,7 +45,7 @@ declare module '@tanstack/react-router' {
 
 export default function App() {
   const [showDevtools, setShowDevtools] = React.useState(false);
-
+  const { session } = useSession();
   React.useEffect(() => {
     // @ts-expect-error
     window.toggleDevtools = () => setShowDevtools((old) => !old);
@@ -79,9 +85,12 @@ export default function App() {
         {theme === 'themeOzenDefault' ? 'Светлая тема' : 'Темная тема'}
       </div>
 
-      {/* <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
         <Suspense fallback={<h1>LOADING...</h1>}>
-          <RouterProvider router={router} />
+          <RouterProvider
+            router={router}
+            context={{ isAuthenticated: session }}
+          />
         </Suspense>
         <ReactQueryDevtools initialIsOpen />
         {showDevtools && (
@@ -89,7 +98,7 @@ export default function App() {
             <ReactQueryDevtoolsProduction />
           </React.Suspense>
         )}
-      </QueryClientProvider> */}
+      </QueryClientProvider>
     </>
   );
 }

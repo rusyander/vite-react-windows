@@ -9,18 +9,13 @@ const authSearchSchema = zod.object({
 export const Route = createFileRoute(ROUTES.AUTH)({
   validateSearch: authSearchSchema,
   beforeLoad: ({ context }) => {
-    redirect({
-      to: '/auth',
-    });
+    if (context.isAuthenticated) {
+      throw redirect({
+        to: '/',
+      });
+    }
+    // redirect({
+    //   to: '/auth',
+    // });
   },
 });
-// ({
-//   validateSearch: authSearchSchema,
-//   // beforeLoad: ({ context }) => {
-//   //   if (context.isAuthenticated) {
-//   //     throw redirect({
-//   //       to: '/'
-//   //     });
-//   //   }
-//   // }
-// });

@@ -30,7 +30,7 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   sonner:
-    specifier: ^1.4.41
+    specifier: ^1.4.0
     version: 1.4.41(react-dom@18.2.0)(react@18.2.0)
   tailwind-merge:
     specifier: ^2.2.1
@@ -124,8 +124,11 @@ devDependencies:
   mock-config-server:
     specifier: 3.3.4
     version: 3.3.4
+  prettier:
+    specifier: ^3.2.5
+    version: 3.2.5
   prettier-plugin-tailwindcss:
-    specifier: ^0.5.11
+    specifier: ^0.5.12
     version: 0.5.12(prettier@3.2.5)
   tailwindcss:
     specifier: ^3.4.1

@@ -1,24 +1,32 @@
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
+import {
+  createRootRouteWithContext,
+  Link,
+  Outlet,
+} from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+import { Toaster } from 'sonner';
 
 interface RouterContext {
   isAuthenticated: boolean;
 }
 
-export const Route = createRootRoute({
+const TOASTER_DURATION = 6000;
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
-    <div className=" w-full h-full">
-      <header className="flex  items-center justify-between p-4 w-1/4">
+    <div className=" h-full w-full">
+      <header className="flex  w-1/4 items-center justify-between p-4">
         <Link to="/auth" className="[&.active]:font-bold">
           Auth
         </Link>
-        <Link to="/" className="[&.active]:font-bold color">
+        <Link to="/" className="color [&.active]:font-bold">
           home
         </Link>
       </header>
       <div className="">
         <Outlet />
       </div>
+      <Toaster duration={TOASTER_DURATION} />
       <TanStackRouterDevtools />
     </div>
   ),

@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app.tsx';
@@ -16,7 +16,7 @@ interface BaseResponse {
 const defaultTheme = 'themeOzenDark';
 let defaultSession = true;
 const defaultLanguage = 'ru';
-const DEFAULT_ERROR = 'Something went wrong';
+const defaultError = 'Something went wrong';
 
 const rootElement = document.getElementById('root')!;
 const root = ReactDOM.createRoot(rootElement);
@@ -26,7 +26,7 @@ const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (cause) => {
       const { response } = cause as AxiosError<BaseResponse>;
-      toast.error(response?.data.message ?? DEFAULT_ERROR, {
+      toast.error(response?.data.message ?? defaultError, {
         cancel: { label: 'Close' },
       });
     },
@@ -34,28 +34,44 @@ const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError: (cause) => {
       const { response } = cause as AxiosError<BaseResponse>;
-      toast.error(response?.data.message ?? DEFAULT_ERROR, {
+      toast.error(response?.data.message ?? defaultError, {
         cancel: { label: 'Close' },
       });
     },
   }),
 });
 
-const providerProps: Omit<ProviderProps, 'children'> = {
-  theme: { defaultTheme },
-  session: { defaultSession },
-};
-
-if (!rootElement.innerHTML) {
-  root.render(
-    <StrictMode>
-      <Providers {...providerProps}>
-        <App />
-      </Providers>
-    </StrictMode>,
-  );
-}
-
 const init = () => {
   const token = localStorage.getItem(COOKIE.ACCESS_TOKEN);
+
+  const providersProps: Omit<ProviderProps, 'children'> = {
+    theme: { defaultTheme },
+    session: { defaultSession },
+    language: { defaultLanguage },
+    query: { client: queryClient },
+    profile: { defaultProfile: undefined },
+    error: { defaultError },
+  };
+
+  // if (token) {
+  //   const getProfileQuery = await queryClient.fetchQuery({
+  //     queryKey: ['getProfile'],
+  //     queryFn: () => getProfile()
+  //   });
+
+  //   providersProps.profile.defaultProfile = getProfileQuery?.data?.profile;
+  //   providersProps.session.defaultSession = !!getProfileQuery?.data;
+  // }
+
+  if (!rootElement.innerHTML && defaultSession) {
+    root.render(
+      <StrictMode>
+        <Providers {...providersProps}>
+          <App />
+        </Providers>
+      </StrictMode>,
+    );
+  }
 };
+
+init();

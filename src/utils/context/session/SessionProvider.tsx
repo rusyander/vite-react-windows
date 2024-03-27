@@ -9,6 +9,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
   children,
   defaultSession,
 }) => {
+  console.log('session provider');
   const [session, setSession] = React.useState<boolean>(defaultSession);
   const value = React.useMemo(() => ({ session, setSession }), [session]);
 

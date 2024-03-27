@@ -11,6 +11,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
   defaultTheme = 'themeOzenDark',
 }) => {
+  console.log('theme provider');
   const getTheme =
     (localStorage.getItem(COOKIE.THEME) as Theme) ?? defaultTheme;
   const [theme, setTheme] = useState<Theme>(getTheme);

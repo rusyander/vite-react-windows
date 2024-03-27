@@ -19,7 +19,7 @@
     "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sonner": "^1.4.41",
+    "sonner": "^1.4.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
@@ -52,7 +52,8 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "mock-config-server": "3.3.4",
-    "prettier-plugin-tailwindcss": "^0.5.11",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
