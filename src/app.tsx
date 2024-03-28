@@ -36,7 +36,6 @@ const router = createRouter({
   },
 });
 
-// // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
@@ -55,23 +54,15 @@ export default function App() {
   console.log(theme);
 
   const selectTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // setTheme(
-    //   theme === 'themeOzenDefault' ? 'themeOzenDark' : 'themeOzenDefault',
-    // );
     setTheme(e.target.value as Theme);
     localStorage.setItem(COOKIE.THEME, e.target.value);
   };
-  const handleClick = () => {
-    // setThemeName(themeName === 'default' ? 'dark' : 'default');
-  };
+  const handleClick = () => {};
 
   return (
     <>
-      <h1 className="">test</h1>
+      {/* <h1 className="">test</h1>
       <select name="theme" id="" value={theme} onChange={selectTheme}>
-        {/* <option selected value={theme}>
-          themeOzenDefault
-        </option> */}
         <option value="themeOzenDefault">themeOzenDefault</option>
         <option value="themeOzenDark">themeOzenDark</option>
       </select>
@@ -83,7 +74,7 @@ export default function App() {
           <SegmentItem value="dark" />
         </Segment>
         {theme === 'themeOzenDefault' ? 'Светлая тема' : 'Темная тема'}
-      </div>
+      </div> */}
 
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<h1>LOADING...</h1>}>

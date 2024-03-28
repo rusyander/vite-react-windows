@@ -8,9 +8,9 @@ export const Route = createFileRoute(ROUTES.INDEX)({
         to: '/auth',
       });
     }
+  },
 
-    redirect({
-      to: '/',
-    });
+  onError(err) {
+    console.error('index route error', err);
   },
 });

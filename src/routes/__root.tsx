@@ -15,17 +15,17 @@ const TOASTER_DURATION = 6000;
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <div className=" h-full w-full">
-      <header className="flex  w-1/4 items-center justify-between p-4">
+      {/* <header className="flex  w-1/4 items-center justify-between p-4">
         <Link to="/auth" className="[&.active]:font-bold">
           Auth
         </Link>
         <Link to="/" className="color [&.active]:font-bold">
           home
         </Link>
-      </header>
-      <div className="">
+      </header> */}
+      <>
         <Outlet />
-      </div>
+      </>
       <Toaster duration={TOASTER_DURATION} />
       <TanStackRouterDevtools />
     </div>

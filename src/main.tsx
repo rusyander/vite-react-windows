@@ -14,7 +14,7 @@ interface BaseResponse {
 }
 
 const defaultTheme = 'themeOzenDark';
-let defaultSession = true;
+let defaultSession = false;
 const defaultLanguage = 'ru';
 const defaultError = 'Something went wrong';
 
@@ -63,7 +63,7 @@ const init = () => {
   //   providersProps.session.defaultSession = !!getProfileQuery?.data;
   // }
 
-  if (!rootElement.innerHTML && defaultSession) {
+  if (!rootElement.innerHTML) {
     root.render(
       <StrictMode>
         <Providers {...providersProps}>

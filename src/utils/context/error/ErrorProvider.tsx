@@ -10,7 +10,7 @@ export const ErrorProvider: React.FC<ErrorProviderProps> = ({
   children,
   defaultError,
 }) => {
-  console.log('error provider');
+  //   console.log('error provider');
 
   const [error, setError] = React.useState<Error | string>(defaultError);
   const value = React.useMemo(() => ({ error, setError }), [error]);

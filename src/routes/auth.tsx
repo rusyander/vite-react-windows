@@ -14,8 +14,9 @@ export const Route = createFileRoute(ROUTES.AUTH)({
         to: '/',
       });
     }
-    // redirect({
-    //   to: '/auth',
-    // });
+  },
+
+  onError(err) {
+    console.error('auth route error', err);
   },
 });

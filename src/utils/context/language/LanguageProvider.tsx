@@ -11,7 +11,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
   children,
   defaultLanguage,
 }) => {
-  console.log('language provider');
+  //   console.log('language provider');
   const getLanguage =
     (localStorage.getItem(COOKIE.LANGUAGE) as Languages) ?? defaultLanguage;
   const [language, setLanguage] = React.useState(getLanguage);

@@ -1,16 +1,9 @@
-import React from 'react';
-
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { ROUTES } from '@/utils/constants';
+import { MainPage } from '@/pages/main/Main';
+import { MainLoad } from '@/pages/main/MainLoad';
 
 export const Route = createLazyFileRoute(ROUTES.INDEX)({
-  component: Index,
+  component: MainPage,
+  pendingComponent: MainLoad,
 });
-
-function Index() {
-  return (
-    <div className="p-0">
-      <p>Welcome INDEX!</p>
-    </div>
-  );
-}

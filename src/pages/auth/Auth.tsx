@@ -1,13 +1,20 @@
-import React from 'react';
+import { Providers } from './providers';
+import { Stage } from './contexts/stage';
 
 interface AuthPageProps {
-  searchParams?: { stage?: true };
+  searchParams?: { stage?: Stage };
 }
 
-export const Auth = ({ searchParams }: AuthPageProps) => {
+export const AuthPage = ({ searchParams }: AuthPageProps) => {
   console.log('Auth');
 
-  const defaultStage = searchParams.stage ?? 'signIn';
+  const defaultStage = searchParams?.stage ?? 'signIn';
 
-  return <p className="text-red-600">Auth</p>;
+  return (
+    <>
+      <Providers stage={{ defaultStage }}>
+        <h1>AuthPage</h1>
+      </Providers>
+    </>
+  );
 };
