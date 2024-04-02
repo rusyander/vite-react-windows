@@ -5,10 +5,10 @@ import { useSession } from '@/utils/context/session';
 import React, { useState } from 'react';
 
 export const useSingInForm = () => {
-  const [setOtp] = useOtp();
-  const [setStage] = useStage();
-  const [setProfile] = useProfile();
-  const [setSession] = useSession();
+  const { setOtp } = useOtp();
+  const { setStage } = useStage();
+  const { setProfile } = useProfile();
+  const { setSession } = useSession();
 
   const [type, setType] = useState<'password' | 'text'>('password');
   const [password, setPassword] = useState<string>('');
