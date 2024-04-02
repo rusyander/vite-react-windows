@@ -3,15 +3,14 @@ import { ThemeContext, type Theme } from './ThemeContext';
 import { COOKIE } from '@/utils/constants';
 
 export interface ThemeProviderProps {
-  defaultTheme?: 'themeOzenDefault' | 'themeOzenDark';
+  defaultTheme?: Theme;
   children: React.ReactNode;
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
-  defaultTheme = 'themeOzenDark',
+  defaultTheme = 'dark',
 }) => {
-  console.log('theme provider');
   const getTheme =
     (localStorage.getItem(COOKIE.THEME) as Theme) ?? defaultTheme;
   const [theme, setTheme] = useState<Theme>(getTheme);

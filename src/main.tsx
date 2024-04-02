@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app.tsx';
@@ -13,7 +13,7 @@ interface BaseResponse {
   message: string;
 }
 
-const defaultTheme = 'themeOzenDark';
+const defaultTheme = 'dark';
 let defaultSession = false;
 const defaultLanguage = 'ru';
 const defaultError = 'Something went wrong';
@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
     onError: (cause) => {
       const { response } = cause as AxiosError<BaseResponse>;
       toast.error(response?.data.message ?? defaultError, {
-        cancel: { label: 'Close' },
+        cancel: { label: 'Close' } as any,
       });
     },
   }),
@@ -35,7 +35,7 @@ const queryClient = new QueryClient({
     onError: (cause) => {
       const { response } = cause as AxiosError<BaseResponse>;
       toast.error(response?.data.message ?? defaultError, {
-        cancel: { label: 'Close' },
+        cancel: { label: 'Close' } as any,
       });
     },
   }),

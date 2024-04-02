@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Theme = 'themeOzenDefault' | 'themeOzenDark';
+export type Theme = 'default' | 'dark';
 
 export interface ThemeContextProps {
   theme: Theme;
@@ -8,6 +8,6 @@ export interface ThemeContextProps {
 }
 
 export const ThemeContext = React.createContext<ThemeContextProps>({
-  theme: 'themeOzenDark',
+  theme: 'dark',
   setTheme: () => {},
 });

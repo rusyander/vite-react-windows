@@ -3,18 +3,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
-import React, { Suspense, useContext } from 'react';
-import {
-  Theme,
-  ThemeContext,
-  ThemeProvider,
-  useTheme,
-} from './utils/context/theme';
+import React, { Suspense } from 'react';
+import { type Theme, useTheme } from './utils/context/theme';
 
-import { Segment, SegmentItem } from '@ozen-ui/kit/Segment';
+import {
+  ThemeProvider as ThemeProviderUiKit,
+  themeOzenDefault,
+  themeOzenDark,
+} from '@ozen-ui/kit/ThemeProvider';
+
 import { COOKIE } from './utils/constants';
 import { useSession } from './utils/context/session';
-// import { LightIcon, DarkIcon } from '@ozen-ui/kit/Icon';
 
 const queryClient = new QueryClient();
 
@@ -26,9 +25,6 @@ const ReactQueryDevtoolsProduction = React.lazy(() =>
   ),
 );
 
-// Import the generated route tree
-
-// Create a new router instance
 const router = createRouter({
   routeTree,
   context: {
@@ -42,6 +38,13 @@ declare module '@tanstack/react-router' {
   }
 }
 
+type ThemesVariant = typeof themeOzenDefault | typeof themeOzenDark;
+
+const Themes: { [key in 'default' | 'dark']: ThemesVariant } = {
+  default: themeOzenDefault,
+  dark: themeOzenDark,
+};
+
 export default function App() {
   const [showDevtools, setShowDevtools] = React.useState(false);
   const { session } = useSession();
@@ -51,7 +54,7 @@ export default function App() {
   }, []);
 
   const { theme, setTheme } = useTheme();
-  console.log(theme);
+  // console.log(theme);
 
   const selectTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTheme(e.target.value as Theme);
@@ -60,11 +63,11 @@ export default function App() {
   const handleClick = () => {};
 
   return (
-    <>
+    <div className="h-screen w-screen">
       {/* <h1 className="">test</h1>
       <select name="theme" id="" value={theme} onChange={selectTheme}>
-        <option value="themeOzenDefault">themeOzenDefault</option>
-        <option value="themeOzenDark">themeOzenDark</option>
+        <option value="default">default</option>
+        <option value="dark">dark</option>
       </select>
       <h1>theme: {theme}</h1>
 
@@ -73,23 +76,24 @@ export default function App() {
           <SegmentItem value="light" />
           <SegmentItem value="dark" />
         </Segment>
-        {theme === 'themeOzenDefault' ? 'Светлая тема' : 'Темная тема'}
+        {theme === 'default' ? 'Светлая тема' : 'Темная тема'}
       </div> */}
-
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<h1>LOADING...</h1>}>
-          <RouterProvider
-            router={router}
-            context={{ isAuthenticated: session }}
-          />
-        </Suspense>
-        <ReactQueryDevtools initialIsOpen />
-        {showDevtools && (
-          <React.Suspense fallback={null}>
-            <ReactQueryDevtoolsProduction />
-          </React.Suspense>
-        )}
-      </QueryClientProvider>
-    </>
+      <ThemeProviderUiKit theme={Themes[theme] ?? themeOzenDefault}>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<h1>LOADING...</h1>}>
+            <RouterProvider
+              router={router}
+              context={{ isAuthenticated: session }}
+            />
+          </Suspense>
+          <ReactQueryDevtools initialIsOpen />
+          {showDevtools && (
+            <React.Suspense fallback={null}>
+              <ReactQueryDevtoolsProduction />
+            </React.Suspense>
+          )}
+        </QueryClientProvider>
+      </ThemeProviderUiKit>
+    </div>
   );
 }

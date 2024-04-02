@@ -14,7 +14,7 @@ const TOASTER_DURATION = 6000;
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
-    <div className=" h-full w-full">
+    <div className="h-screen w-screen">
       {/* <header className="flex  w-1/4 items-center justify-between p-4">
         <Link to="/auth" className="[&.active]:font-bold">
           Auth
