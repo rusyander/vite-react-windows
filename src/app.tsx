@@ -7,6 +7,12 @@ import React, { Suspense } from 'react';
 import { type Theme, useTheme } from './utils/context/theme';
 
 import {
+  IntlProvider,
+  LocaleMessages,
+  importMessages,
+} from './utils/language/intlHelpers';
+
+import {
   ThemeProvider as ThemeProviderUiKit,
   themeOzenDefault,
   themeOzenDark,
@@ -14,6 +20,9 @@ import {
 
 import { COOKIE } from './utils/constants';
 import { useSession } from './utils/context/session';
+import { useLanguage } from './utils/context/language';
+
+import { Card } from '@ozen-ui/kit/Card';
 
 const queryClient = new QueryClient();
 
@@ -62,9 +71,22 @@ export default function App() {
   };
   const handleClick = () => {};
 
-  return (
-    <div className="h-screen w-screen">
-      {/* <h1 className="">test</h1>
+  // --------------------------------------- i18n ---------------------------------------
+
+  const { language } = useLanguage();
+
+  const locale = language;
+  const [messages, setMessages] = React.useState<LocaleMessages | null>(null);
+  React.useEffect(() => {
+    importMessages(locale).then(setMessages);
+  }, []);
+
+  // --------------------------------------- i18n ---------------------------------------
+
+  return messages ? (
+    <IntlProvider locale={locale} messages={messages} defaultLocale="ru">
+      <div>
+        {/* <h1 className="">test</h1>
       <select name="theme" id="" value={theme} onChange={selectTheme}>
         <option value="default">default</option>
         <option value="dark">dark</option>
@@ -78,22 +100,25 @@ export default function App() {
         </Segment>
         {theme === 'default' ? 'Светлая тема' : 'Темная тема'}
       </div> */}
-      <ThemeProviderUiKit theme={Themes[theme] ?? themeOzenDefault}>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<h1>LOADING...</h1>}>
-            <RouterProvider
-              router={router}
-              context={{ isAuthenticated: session }}
-            />
-          </Suspense>
-          <ReactQueryDevtools initialIsOpen />
-          {showDevtools && (
-            <React.Suspense fallback={null}>
-              <ReactQueryDevtoolsProduction />
-            </React.Suspense>
-          )}
-        </QueryClientProvider>
-      </ThemeProviderUiKit>
-    </div>
-  );
+
+        {/* ----------------------- */}
+        <ThemeProviderUiKit theme={Themes[theme] ?? themeOzenDefault}>
+          <QueryClientProvider client={queryClient}>
+            <Suspense fallback={<h1>LOADING...</h1>}>
+              <RouterProvider
+                router={router}
+                context={{ isAuthenticated: session }}
+              />
+            </Suspense>
+            <ReactQueryDevtools initialIsOpen />
+            {showDevtools && (
+              <React.Suspense fallback={null}>
+                <ReactQueryDevtoolsProduction />
+              </React.Suspense>
+            )}
+          </QueryClientProvider>
+        </ThemeProviderUiKit>
+      </div>
+    </IntlProvider>
+  ) : null;
 }

@@ -7,8 +7,6 @@ interface AuthPageProps {
 }
 
 export const AuthPage = ({ searchParams }: AuthPageProps) => {
-  console.log('Auth');
-
   const defaultStage = searchParams?.stage ?? 'signIn';
 
   return (

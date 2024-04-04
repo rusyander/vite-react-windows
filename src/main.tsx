@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app.tsx';
@@ -8,14 +8,17 @@ import { toast } from 'sonner';
 import { COOKIE } from './utils/constants/cookies.ts';
 import Providers from './providers.tsx';
 import type { ProviderProps } from './providers.tsx';
+import { Languages } from './utils/context/language';
 
 interface BaseResponse {
   message: string;
 }
 
-const defaultTheme = 'dark';
+const defaultTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+  ? 'dark'
+  : 'default';
 let defaultSession = false;
-const defaultLanguage = 'ru';
+const defaultLanguage = (window.navigator.language as Languages) ?? 'ru';
 const defaultError = 'Something went wrong';
 
 const rootElement = document.getElementById('root')!;
