@@ -49,6 +49,7 @@ export const SingInForm = () => {
             <Stack direction="column" gap="m" fullWidth>
               <Input
                 fullWidth
+                autoFocus
                 //   hint="login or email length must be more than 3 characters"
                 // error={stage.login.length >= 3 ? false : true}
                 label="Write login or email"

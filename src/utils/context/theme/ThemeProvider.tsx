@@ -15,7 +15,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     (localStorage.getItem(COOKIE.THEME) as Theme) ?? defaultTheme;
   const [theme, setTheme] = useState<Theme>(getTheme);
   const value = React.useMemo(() => ({ theme, setTheme }), [theme]);
-  console.log(value);
+  // console.log(value);
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

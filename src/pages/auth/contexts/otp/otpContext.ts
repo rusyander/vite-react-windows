@@ -2,7 +2,8 @@ import React from 'react';
 
 export interface Otp {
   type: 'email' | 'phone';
-  resource: string;
+  resource: 'select' | 'form';
+  typeValue: string;
   retryDelay: number;
 }
 
@@ -12,6 +13,6 @@ export interface OtpContextInterface {
 }
 
 export const OtpContext = React.createContext<OtpContextInterface>({
-  otp: { type: 'email', resource: '', retryDelay: 0 },
+  otp: { type: 'email', resource: 'select', retryDelay: 0, typeValue: '' },
   setOtp: () => {},
 });
